@@ -11,5 +11,8 @@ public interface IClienteDao {
 	public List<Cliente> findAll();
 	
 	
+	// método guardar tupla en la tabla Clientes
+	public void save(Cliente cliente);
+	
 
 }

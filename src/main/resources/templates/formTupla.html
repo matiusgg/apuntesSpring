@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8" />
+<title th:text="${titulo}"></title>
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+	integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
+	crossorigin="anonymous">
+</head>
+<body>
+
+	<form th:action="@{/form}" th:object="${cliente}" method="post">
+
+		<!-- Tabla en forma del formulario -->
+
+		<table class="table table-striped">
+
+			<tr>
+				<td>Nombre</td>
+
+				<td> <input type="text" th:field="*{nombre}"> </td>
+			</tr>
+			
+			<tr>
+				<td>Apellido</td>
+
+				<td> <input type="text" th:field="*{apellido}"> </td>
+			</tr>
+			
+			<tr>
+				<td>Email</td>
+
+				<td> <input type="email" th:field="*{email}"> </td>
+			</tr>
+			<!--  
+			<tr>
+				<td>Fecha</td>
+
+				<td> <input type="date" th:field="*{createAt}"> </td>
+			</tr>
+			
+			-->
+			
+			<tr>
+
+				<td> <input type="submit" value="Crear Cliente"> </td>
+			</tr>
+
+		</table>
+		
+		<!-- ID de la tupla -->
+		
+		<input type="hidden" th:field="*{id}">
+
+	</form>
+
+</body>
+</html>

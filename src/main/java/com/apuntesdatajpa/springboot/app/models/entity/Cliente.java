@@ -9,6 +9,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.PrePersist;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -52,6 +53,17 @@ public class Cliente implements Serializable {
 	@Column(name = "create_At")
 	@Temporal(TemporalType.DATE)
 	private Date createAt;
+	
+	// @PrePersist: Nos permite ingresar dentro del ciclo de vida del método PERSIST() con el objeto @Entity, el cual está
+	// relacionado con el método PERSIST() del @EntityManager, donde nos permite decirle que antes
+	// de que se ejecute el PERSIST() de este objeto @Entity, ejecutame este método.
+	// En este caso nos permite guardar el contenido de este método en la base de datos, antes que el contenido de PERSIST().
+	// En este caso, que nos ingrese una fecha antes que el resto de los valores del formulario. esto en el caso de que no queramos hacer un input de fecha.
+	@PrePersist
+	public void prePersist() {
+		
+		this.createAt = new Date();
+	}
 
 	public Long getId() {
 		return id;
