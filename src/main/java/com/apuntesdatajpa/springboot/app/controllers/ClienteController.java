@@ -2,10 +2,14 @@ package com.apuntesdatajpa.springboot.app.controllers;
 
 import java.util.Map;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -54,11 +58,44 @@ public class ClienteController {
 	}
 	
 	@RequestMapping(value="/form", method=RequestMethod.POST)
-	public String guardarTupla(Cliente cliente) {
+	public String guardarTupla(@Valid Cliente cliente, BindingResult result, Model model) {
+		
+		if(result.hasErrors()) {
+			
+			model.addAttribute("titulo", "Formulario de Cliente");
+			
+			return "formTupla";
+			
+		}
 		
 		clienteDao.save(cliente);
 		
 		return "redirect:listar";
+		
+	}
+	
+	// EDITAR
+	
+	@RequestMapping(value="/form/{id}")
+	public String editarTupla(@PathVariable(value="id") Long id, Map<String, Object> model) {
+		
+		Cliente cliente = null;
+		
+		if(id > 0) {
+			
+			cliente = clienteDao.findOne(id);
+		} else {
+			
+			return "redirect:listar";
+		}
+		
+		// Si el id, es menor que cero, enviara un NULL, sino enviará el objeto @Entity
+		model.put("cliente", cliente);
+		
+		model.put("titulo", "Formulario de Cliente EDITAR");
+		
+		return "form";
+		
 	}
 	
 }

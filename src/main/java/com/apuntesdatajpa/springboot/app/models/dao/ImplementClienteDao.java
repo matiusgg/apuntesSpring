@@ -40,7 +40,15 @@ public class ImplementClienteDao implements IClienteDao {
 		em.persist(cliente);
 		
 	}
+
 	
+	// Implementamos findOne()
+	@Override
+	public Cliente findOne(Long id) {
+		
+		// class nos permite recoger el contenido de @Entity de class.
+		return em.find(Cliente.class, id);
+	}
 	
 
 }

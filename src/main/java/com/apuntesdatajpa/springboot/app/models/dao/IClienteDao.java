@@ -14,5 +14,8 @@ public interface IClienteDao {
 	// método guardar tupla en la tabla Clientes
 	public void save(Cliente cliente);
 	
+	// Buscar una tupla por su ID
+	public Cliente findOne(Long id);
+	
 
 }

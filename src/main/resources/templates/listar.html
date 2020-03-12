@@ -30,7 +30,7 @@
         </a>
       </li>
       <li class="nav-item active">
-        <a class="nav-link" th:href="@{/form}">Agregar Tupla <span class="sr-only">(current)</span></a>
+        <a class="btn btn-success btn-xs" th:href="@{/form}">Agregar Tupla <span class="sr-only">(current)</span></a>
       </li>
     </ul>
   </div>
@@ -61,6 +61,7 @@
 <td th:text="${cliente.apellido}"> </td>
 <td th:text="${cliente.email}"> </td>
 <td th:text="${cliente.createAt}"> </td>
+<td> <a th:href="@{/form/} + ${cliente.id}" th:text="'editar'" class="btn btn-primary btn-xs"></a></td>
 </tr>
 </tbody>
 

@@ -13,6 +13,11 @@ import javax.persistence.PrePersist;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+
+import org.springframework.format.annotation.DateTimeFormat;
 
 // Esta clase nos ayudará a crear la tabla, por lo cual los atributos serán como los atributos de una tabla.
 //Si queremos configurar que el nombre de la clase sea igual al nombre de la tabla.
@@ -39,10 +44,14 @@ public class Cliente implements Serializable {
 	// por ejemplo VARCHAR; boolean, etc. Ejm: @Column(name="nombre_cliente",
 	// boolean)
 	// @Column(name="nombre_cliente")
+	@NotEmpty
 	private String nombre;
-
+	
+	@NotEmpty
 	private String apellido;
 
+	@NotEmpty
+	@Email
 	private String email;
 
 	// Los nombre de los atributos por buena sintaxis, si estos tiene más de dos
@@ -50,8 +59,10 @@ public class Cliente implements Serializable {
 	// @Temporal: Nos permite definir un atributo de la tabla de tipo TIME, para
 	// fechas, etc.
 	// DATE: solo fecha, TIME: Hora, TIMESTAMP: fecha y hora.
+	@NotNull
 	@Column(name = "create_At")
 	@Temporal(TemporalType.DATE)
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date createAt;
 	
 	// @PrePersist: Nos permite ingresar dentro del ciclo de vida del método PERSIST() con el objeto @Entity, el cual está
@@ -59,11 +70,17 @@ public class Cliente implements Serializable {
 	// de que se ejecute el PERSIST() de este objeto @Entity, ejecutame este método.
 	// En este caso nos permite guardar el contenido de este método en la base de datos, antes que el contenido de PERSIST().
 	// En este caso, que nos ingrese una fecha antes que el resto de los valores del formulario. esto en el caso de que no queramos hacer un input de fecha.
+	
+	/*
+	 * Pero en el caso de que queramos colocar un input:date, no habría necesidad de usar esta opción.
+	
 	@PrePersist
 	public void prePersist() {
 		
 		this.createAt = new Date();
 	}
+	
+	*/
 
 	public Long getId() {
 		return id;
